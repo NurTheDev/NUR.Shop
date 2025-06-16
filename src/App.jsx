@@ -1,10 +1,11 @@
 import React from 'react';
+import Index from "./pages/Index.jsx";
 
 const App = () => {
     return (
-        <div>
-            <h1 className="text-3xl font-bold underline">hello world</h1>
-        </div>
+        <>
+            <Index />
+        </>
     );
 };
 
