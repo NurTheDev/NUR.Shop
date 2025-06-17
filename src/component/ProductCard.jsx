@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+
 import {getImageUrl} from "../utility/index.js";
 import {useContext} from "react";
 import {CartContext} from "../context/index.js";
@@ -6,13 +6,14 @@ import {CartContext} from "../context/index.js";
 const ProductCard = ({product}) => {
     const {state, dispatch} = useContext(CartContext);
     console.log("ProductCard state", state);
-    const [isInCart, setIsInCart] = useState(false);
+    const existingProduct = state.productItems.find(item => item.id === product.id);
+    const isInCart = existingProduct ? true : false;
+    const currentStock = existingProduct ? existingProduct.stock : product.stock;
     const handleAddToCart = (product) => {
         console.log("Adding product to cart:", product);
         // Dispatch an action to add the product to the cart
         const existingProduct = state.productItems.find(item => item.id === product.id);
         if (!existingProduct) {
-            setIsInCart(true);
             dispatch({
                 type: 'ADD_TO_CART',
                 payload: {
@@ -20,7 +21,6 @@ const ProductCard = ({product}) => {
                 }
             })
         } else {
-            setIsInCart(false);
             dispatch({
                 type: 'REMOVE_FROM_CART',
                 payload: {
@@ -47,12 +47,13 @@ const ProductCard = ({product}) => {
                         </div>
                         <span className="text-xs text-gray-500 ml-1">{product.rating}/5</span>
                     </div>
-                    <span className="text-xs text-gray-700">({product.quantity})</span>
+                    <span className="text-xs text-gray-700">({currentStock})</span>
                 </div>
                 <p className="font-bold">${product.price}</p>
                 {isInCart ? (<button onClick={() => handleAddToCart(product)}
                     class="w-full mt-2 bg-red-800 py-1 text-gray-100 rounded flex items-center justify-center">Remove
                     from Cart</button>) : (<button onClick={() => handleAddToCart(product)}
+                                                   disabled={currentStock === 0}
                                                    className="disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed w-full mt-2 bg-gray-800 py-1 text-gray-100 rounded flex items-center justify-center active:translate-y-1 transition-all active:bg-gray-900">Add
                     to Cart
                 </button>)}
