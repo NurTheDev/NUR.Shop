@@ -2,7 +2,16 @@ import React, {useContext} from 'react';
 import {getImageUrl} from "../utility/index.js";
 import {CartContext} from "../context/index.js";
 const CartItem = ({item}) => {
-    const { dispatch} = useContext(CartContext);
+    const {dispatch} = useContext(CartContext);
+    const handleRemoveFromCart = (item) => {
+        // Remove the product from the cart
+        dispatch({
+            type: 'REMOVE_FROM_CART',
+            payload: {
+                ...item,
+            }
+        })
+    };
     const handleIncrement = () => {
         // Increment the quantity of the product
         dispatch({
@@ -30,7 +39,7 @@ const CartItem = ({item}) => {
             <div className="flex-grow">
                 <div className="flex justify-between">
                     <h3 className="font-medium">{item.name}</h3>
-                    <span className="text-red-500 text-sm">×</span>
+                    <span className="text-red-500 text-sm cursor-pointer" onClick={()=> handleRemoveFromCart(item)}>×</span>
                 </div>
                 <p className="text-sm text-gray-500">Size: {item.size}</p>
                 <p className="text-sm text-gray-500">Color: {item.color}</p>

@@ -5,7 +5,6 @@ import {CartContext} from "../context/index.js";
 
 const ProductCard = ({product}) => {
     const {state, dispatch} = useContext(CartContext);
-    console.log("ProductCard state", state);
     const existingProduct = state.productItems.find(item => item.id === product.id);
     const isInCart = existingProduct ? true : false;
     const currentStock = existingProduct ? existingProduct.stock : product.stock;

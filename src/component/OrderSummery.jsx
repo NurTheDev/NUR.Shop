@@ -1,6 +1,15 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
+import {CartContext} from "../context/index.js";
 
 const OrderSummery = () => {
+    const {state} = useContext(CartContext);
+    const subTotal = state.productItems.reduce((total, item)=>{
+        return total + item.price * item.quantity;
+    } , 0);
+    const discount = subTotal * 0.2; // 20% discount
+    const priceAfterDiscount = subTotal - discount;
+    const deliveryFee = 15; // Fixed delivery fee
+    const total = priceAfterDiscount + deliveryFee;
     return (
         <div className="mt-6">
             <h3 className="font-bold text-lg mb-4">Order Summary</h3>
@@ -8,11 +17,11 @@ const OrderSummery = () => {
             <div className="space-y-2 mb-4">
                 <div className="flex justify-between">
                     <span className="text-gray-600">Subtotal</span>
-                    <span className="font-medium">$565</span>
+                    <span className="font-medium">${subTotal}</span>
                 </div>
                 <div className="flex justify-between text-red-500">
                     <span>Discount (-20%)</span>
-                    <span>-$113</span>
+                    <span>{discount}</span>
                 </div>
                 <div className="flex justify-between">
                     <span className="text-gray-600">Delivery Fee</span>
@@ -20,7 +29,7 @@ const OrderSummery = () => {
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-2 border-t border-gray-200">
                     <span>Total</span>
-                    <span>$467</span>
+                    <span>${total}</span>
                 </div>
             </div>
 
