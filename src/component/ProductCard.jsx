@@ -2,6 +2,7 @@
 import {getImageUrl} from "../utility/index.js";
 import {useContext} from "react";
 import {CartContext} from "../context/index.js";
+import Rating from "./Rating.jsx";
 
 const ProductCard = ({product}) => {
     const {state, dispatch} = useContext(CartContext);
@@ -38,11 +39,7 @@ const ProductCard = ({product}) => {
                 <h3 className="font-medium">{product.name}</h3>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center my-1">
-                        <div className="flex text-yellow-400">
-                            <span>★</span><span className="text-gray-300">★</span><span
-                            className="text-gray-300">★</span><span className="text-gray-300">★</span><span
-                            className="text-gray-300">★</span>
-                        </div>
+                        <Rating value={product.rating}/>
                         <span className="text-xs text-gray-500 ml-1">{product.rating}/5</span>
                     </div>
                     <span className="text-xs text-gray-700">({currentStock})</span>
