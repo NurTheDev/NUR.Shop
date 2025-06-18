@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Category from "./Catagory.jsx";
 import ProductCard from "./ProductCard.jsx";
-import {getProducts} from "../Data/index.js";
-
+import {ProductContext} from "../context/index.js";
 const ProductList = () => {
-    const products = getProducts();
+    const {productState} = useContext(ProductContext);
+    const products = productState.products;
     return (
         <div className="lg:col-span-2">
             <Category/>
