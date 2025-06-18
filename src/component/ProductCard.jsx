@@ -9,7 +9,6 @@ const ProductCard = ({product}) => {
     const isInCart = existingProduct ? true : false;
     const currentStock = existingProduct ? existingProduct.stock : product.stock;
     const handleAddToCart = (product) => {
-        console.log("Adding product to cart:", product);
         // Dispatch an action to add the product to the cart
         const existingProduct = state.productItems.find(item => item.id === product.id);
         if (!existingProduct) {
@@ -50,7 +49,7 @@ const ProductCard = ({product}) => {
                 </div>
                 <p className="font-bold">${product.price}</p>
                 {isInCart ? (<button onClick={() => handleAddToCart(product)}
-                    class="w-full mt-2 bg-red-800 py-1 text-gray-100 rounded flex items-center justify-center">Remove
+                    className="w-full mt-2 bg-red-800 py-1 text-gray-100 rounded flex items-center justify-center">Remove
                     from Cart</button>) : (<button onClick={() => handleAddToCart(product)}
                                                    disabled={currentStock === 0}
                                                    className="disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed w-full mt-2 bg-gray-800 py-1 text-gray-100 rounded flex items-center justify-center active:translate-y-1 transition-all active:bg-gray-900">Add

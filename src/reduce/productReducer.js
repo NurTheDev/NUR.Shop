@@ -32,6 +32,13 @@ const productReducer = (state = initialState, action) => {
                 ...state,
                 products: products, // Reset to original products if no valid filter
             };
+        case 'SEARCH_PRODUCTS':
+            return {
+                ...state,
+                products: originalProducts.filter(product =>
+                    product.name.toLowerCase().includes(action.payload.toLowerCase())
+                ),
+            }
         default:
             return state;
     }

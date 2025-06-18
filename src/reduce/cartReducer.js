@@ -7,7 +7,6 @@ const cartReducer = (state = {productItems: []}, action) => {
     const selectedProduct = products.find(product => product.id === action.payload.id);
     switch (action.type) {
         case 'ADD_TO_CART':
-            console.log("Adding product to cart:", action.payload);
             return {
                 productItems: [...state.productItems, {
                     ...action.payload,
